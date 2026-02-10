@@ -1,39 +1,35 @@
-package com.company.projecte_esport.model;
+package com.company.projecte_esport.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.index.Indexed;
+/**
+ *
+ * @author Jesus
+ */
 import java.util.Set;
 
-@Document(collection = "users")
-public class User {
+public class UserDTO {
 
-    @Id
     private String id;
     private String name;
-    @Indexed(unique = true)
     private String email;
-    private String password;
     private int age;
     private String gender;
-    private String level; // basic, medium, high 
-    private Set<String> roles; // ROLE_USER, ROLE_ADMIN
+    private String level;
+    private Set<String> roles;
 
-    //  Constructores
-    public User() {
+    public UserDTO() {
     }
 
-    public User(String name, String email, String password, int age, String gender, String level, Set<String> roles) {
+    public UserDTO(String id, String name, String email, int age, String gender, String level, Set<String> roles) {
+        this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.age = age;
         this.gender = gender;
         this.level = level;
         this.roles = roles;
     }
 
-    // Getters and Setters
+    // Getters y Setters
     public String getId() {
         return id;
     }
@@ -56,14 +52,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getAge() {
@@ -96,10 +84,5 @@ public class User {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{id='" + id + "', name='" + name + "', email='" + email + "'}";
     }
 }
