@@ -8,4 +8,10 @@ import java.util.List;
 public interface MatchResultRepository extends MongoRepository<MatchResult, String> {
     // Buscar todos los resultados asociados a un jugador
     List<MatchResult> findByWinnerId(String winnerId);
+    
+    // Buscar el resultado de una reserva específica
+    Optional<MatchResult> findByBookingId(String bookingId);
+    
+    // Verificar si ya existe resultado para una reserva
+    boolean existsByBookingId(String bookingId);
 }

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Document(collection = "match_results")
 public class MatchResult {
+
     @Id
     private String id;
     private String bookingId; // Referencia a la reserva de la que proviene el partido
@@ -15,7 +16,8 @@ public class MatchResult {
     private LocalDate matchDate;
 
     // Constructores
-    public MatchResult() {}
+    public MatchResult() {
+    }
 
     public MatchResult(String bookingId, int player1Sets, int player2Sets, String winnerId, LocalDate matchDate) {
         this.bookingId = bookingId;
@@ -26,21 +28,51 @@ public class MatchResult {
     }
 
     // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getBookingId() { return bookingId; }
-    public void setBookingId(String bookingId) { this.bookingId = bookingId; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public int getPlayer1Sets() { return player1Sets; }
-    public void setPlayer1Sets(int player1Sets) { this.player1Sets = player1Sets; }
+    public String getBookingId() {
+        return bookingId;
+    }
 
-    public int getPlayer2Sets() { return player2Sets; }
-    public void setPlayer2Sets(int player2Sets) { this.player2Sets = player2Sets; }
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
+    }
 
-    public String getWinnerId() { return winnerId; }
-    public void setWinnerId(String winnerId) { this.winnerId = winnerId; }
+    public int getPlayer1Sets() {
+        return player1Sets;
+    }
 
-    public LocalDate getMatchDate() { return matchDate; }
-    public void setMatchDate(LocalDate matchDate) { this.matchDate = matchDate; }
+    public void setPlayer1Sets(int player1Sets) {
+        this.player1Sets = player1Sets;
+    }
+
+    public int getPlayer2Sets() {
+        return player2Sets;
+    }
+
+    public void setPlayer2Sets(int player2Sets) {
+        this.player2Sets = player2Sets;
+    }
+
+    public String getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(String winnerId) {
+        this.winnerId = winnerId;
+    }
+
+    public LocalDate getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(LocalDate matchDate) {
+        this.matchDate = matchDate;
+    }
 }

@@ -9,6 +9,6 @@ public interface BookingRepository extends MongoRepository<Booking, String> {
     // Buscar reservas donde el usuario es el jugador 1 o el jugador 2 (historico)
     List<Booking> findByPlayer1IdOrPlayer2Id(String player1Id, String player2Id);
 
-    // Buscar reservas que no tienen pareja asignada (matchmaking)
-    List<Booking> findByIsFullFalse();
+   // Busca si hay hueco en una fecha y hora exactas
+Optional<Booking> findByDateTimeAndIsFullFalse(LocalDateTime dateTime);
 }
