@@ -1,8 +1,10 @@
 package com.company.projecte_esport.repository;
 
 import com.company.projecte_esport.model.Booking;
+import java.time.LocalDateTime;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
+import java.util.Optional;
 
 // Repositorio para la gestion de reservas de squash
 public interface BookingRepository extends MongoRepository<Booking, String> {

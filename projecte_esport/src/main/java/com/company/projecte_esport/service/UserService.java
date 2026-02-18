@@ -1,5 +1,7 @@
 package com.company.projecte_esport.service;
 
+import com.company.projecte_esport.dto.AuthResponseDTO;
+import com.company.projecte_esport.dto.LoginDTO;
 import com.company.projecte_esport.dto.UserDTO;
 import com.company.projecte_esport.model.User;
 import java.util.List;
