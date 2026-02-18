@@ -27,6 +27,14 @@ public class MatchResultDTO {
         this.matchDate = matchDate;
     }
 
+    public MatchResultDTO(String bookingId, int player1Sets, int player2Sets, String winnerId, LocalDate matchDate) {
+        this.bookingId = bookingId;
+        this.player1Sets = player1Sets;
+        this.player2Sets = player2Sets;
+        this.winnerId = winnerId;
+        this.matchDate = matchDate;
+    }
+
     // Getters y Setters
     public String getId() {
         return id;

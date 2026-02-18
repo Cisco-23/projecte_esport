@@ -1,4 +1,8 @@
 package com.company.projecte_esport.repository;
+/**
+ *
+ * @author Leomar
+ */
 
 import com.company.projecte_esport.model.Booking;
 import java.time.LocalDateTime;

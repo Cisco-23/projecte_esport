@@ -1,4 +1,8 @@
 package com.company.projecte_esport.model;
+/**
+ *
+ * @author Leomar
+ */
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

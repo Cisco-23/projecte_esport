@@ -29,6 +29,14 @@ public class UserDTO {
         this.roles = roles;
     }
 
+    public UserDTO(String name, String email, int age, String gender, String level) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.gender = gender;
+        this.level = level;
+    }
+
     // Getters y Setters
     public String getId() {
         return id;

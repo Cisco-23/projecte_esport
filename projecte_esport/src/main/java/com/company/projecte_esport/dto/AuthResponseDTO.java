@@ -22,6 +22,10 @@ public class AuthResponseDTO {
         this.role = role;
     }
 
+    public AuthResponseDTO(String token) {
+      this.token = token;
+    }
+
     // Getters y Setters
     public String getToken() {
         return token;
