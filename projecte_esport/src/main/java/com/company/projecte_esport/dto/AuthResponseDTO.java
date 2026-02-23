@@ -13,7 +13,7 @@ public class AuthResponseDTO {
     private String token;
     private String email;
     private String name;
-    private String role; // Útil para que el frontend sepa si mostrar panel de ADMIN
+    private String role; //para mostrar el rol 
 
     public AuthResponseDTO(String token, String email, String name, String role) {
         this.token = token;

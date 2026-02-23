@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookingService {
 
-    // Crear reserva sabiendo ya quién es la pareja
+    // Crear reserva sabiendo ya quien es la pareja
     BookingDTO createBookingWithPartner(BookingDTO bookingDTO);
 
     // Crear reserva individual (el sistema busca pareja)

@@ -12,21 +12,21 @@ public interface UserService {
     // En UserService.java
     AuthResponseDTO login(LoginDTO loginDTO);
 
-    // Crear un nou usuari (Retornem DTO per seguretat)
+    // Crear un nuevo usuario (Retornamos un DTO por seguridad)
     UserDTO create(User user);
 
-    // Llegir per ID (MongoDB usa String)
+    // Leer por ID Mongo DB 
     Optional<UserDTO> readById(String id);
 
-    // Llegir per Email 
+    // Leer por email
     Optional<UserDTO> readByEmail(String email);
 
-    // Actualitzar perfil
+    // Actualizar perfil
     void update(User user);
 
-    // Esborrar soci
+    // Borrar el socio
     void delete(String id);
 
-    // Llistar tots els socis
+    // Lista de todos los socios
     List<UserDTO> getAll();
 }

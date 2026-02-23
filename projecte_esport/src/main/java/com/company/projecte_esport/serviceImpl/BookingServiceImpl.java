@@ -28,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findByDateTimeAndIsFullFalse(dto.getDateTime())
             .map(existingBooking -> {
                 existingBooking.setPlayer2Id(dto.getPlayer1Id());
-                existingBooking.setFull(true); // Se completa la pareja [cite: 15]
+                existingBooking.setFull(true); // Encuentra la pareja
                 return mapToDTO(bookingRepository.save(existingBooking));
             })
             .orElseGet(() -> {

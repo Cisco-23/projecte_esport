@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
         // Verificar contraseña cifrada
         if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            // 3. Generar token si es correcta
+            // Generar token si es correcta
             String token = jwtUtils.generateToken(user.getEmail());
             return new AuthResponseDTO(token);
         } else {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO create(User user) {
-        // Cifrar la contraseña antes de guardar (Requisito de seguridad)
+        // Cifrar la contraseña antes de guardar
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         
         User savedUser = userRepository.save(user);
@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         // Verificar si existe antes de actualizar
         if (userRepository.existsById(user.getId())) {
-            // Si el usuario cambia la contraseña se vuelve a cifrar
             // Se actualiza el perfil
             userRepository.save(user);
         }
@@ -89,14 +88,17 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+ 
     // Metodo de apoyo para convertir de Modelo a DTO
-    private UserDTO mapToDTO(User user) {
-        return new UserDTO(
-            user.getName(), 
-            user.getEmail(), 
-            user.getAge(), 
-            user.getGender(), 
-            user.getLevel()
-        );
-    }
+private UserDTO mapToDTO(User user) {
+    return new UserDTO(
+        user.getId(),       // 1. ID MONGO
+        user.getName(),     // 2. NOMBRE
+        user.getEmail(),    // 3.EMAIL
+        user.getAge(),      // 4. EDAD
+        user.getGender(),   // 5. GENERO
+        user.getLevel(),    // 6. NIVEL
+        user.getRoles()     // 7. ROLES
+    );
+}
 }
