@@ -16,7 +16,7 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
+    //POST
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody User user) {
         return ResponseEntity.ok(userService.create(user));

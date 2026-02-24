@@ -1,4 +1,5 @@
 package com.company.projecte_esport.model;
+
 /**
  *
  * @author Leomar
@@ -20,21 +21,21 @@ public class User {
     private String password;
     private int age;
     private String gender;
-    private String level; // basic, medium, high 
-    private Set<String> roles; // ROLE_USER, ROLE_ADMIN
+    private Level level; // basic, medium, high 
+    private Role role; // ROLE_USER, ROLE_ADMIN
 
     //  Constructores
     public User() {
     }
 
-    public User(String name, String email, String password, int age, String gender, String level, Set<String> roles) {
+    public User(String name, String email, String password, int age, String gender, Level level, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.level = level;
-        this.roles = roles;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -86,20 +87,20 @@ public class User {
         this.gender = gender;
     }
 
-    public String getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

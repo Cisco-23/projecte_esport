@@ -22,20 +22,20 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+        
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAll());
     }
-
-    @PutMapping("/{id}")
+    //PUT
+    @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody User user) {
         user.setId(id);
         userService.update(user);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();

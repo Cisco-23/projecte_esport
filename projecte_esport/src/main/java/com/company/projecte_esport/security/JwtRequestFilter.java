@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            System.out.println("1. Token recibido: " + jwt.substring(0, 15) + "..."); // Solo imprimimos el principio
+            System.out.println("1. Token recibido: " + jwt.substring(0, 15) + "...");
             
             try {
                 username = jwtUtils.extractUsername(jwt);
@@ -61,16 +61,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 System.out.println("ERROR AL VALIDAR TOKEN: " + e.getMessage());
             }
 
-            System.out.println("5. ¿Es el token válido?: " + isTokenValid);
+            System.out.println("5. ¿Es el token valido?: " + isTokenValid);
 
             if (isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                System.out.println("6. ¡Acceso concedido! Dejando pasar a " + username);
+                System.out.println("6. Acceso concedido! Dejando pasar a " + username);
             } else {
-                System.out.println("❌ ERROR: El token no es válido o ha caducado.");
+                System.out.println("ERROR: El token no es valido o ha caducado");
             }
         }
         System.out.println("==========================================");

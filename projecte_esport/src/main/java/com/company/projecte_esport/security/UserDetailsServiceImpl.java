@@ -23,17 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // 1. Buscamos el usuario en el  MongoDB Atlas usando el email
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
 
-        // 2. Creamos el objeto User de Spring Security
+        // Como ahora es un solo enum, lo pasamos a GrantedAuthority así de fácil:
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
-                .password(user.getPassword()) 
-                .authorities(user.getRoles().stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList()))
+                .password(user.getPassword())
+                .authorities(java.util.List.of(new SimpleGrantedAuthority(user.getRole().name())))
                 .build();
     }
 }

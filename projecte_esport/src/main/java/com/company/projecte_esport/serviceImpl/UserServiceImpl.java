@@ -4,10 +4,10 @@ package com.company.projecte_esport.serviceImpl;
  *
  * @author Leomar
  */
-
 import com.company.projecte_esport.dto.AuthResponseDTO;
 import com.company.projecte_esport.dto.LoginDTO;
 import com.company.projecte_esport.dto.UserDTO;
+import com.company.projecte_esport.model.Role;
 import com.company.projecte_esport.model.User;
 import com.company.projecte_esport.repository.UserRepository;
 import com.company.projecte_esport.service.UserService;
@@ -50,9 +50,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO create(User user) {
-        // Cifrar la contraseña antes de guardar
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         
+        // AHORA ES MUCHÍSIMO MÁS FÁCIL:
+        if (user.getRole() == null) {
+            user.setRole(Role.USER);
+        }
+ 
         User savedUser = userRepository.save(user);
         return mapToDTO(savedUser);
     }
@@ -88,17 +92,16 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
- 
     // Metodo de apoyo para convertir de Modelo a DTO
-private UserDTO mapToDTO(User user) {
-    return new UserDTO(
-        user.getId(),       // 1. ID MONGO
-        user.getName(),     // 2. NOMBRE
-        user.getEmail(),    // 3.EMAIL
-        user.getAge(),      // 4. EDAD
-        user.getGender(),   // 5. GENERO
-        user.getLevel(),    // 6. NIVEL
-        user.getRoles()     // 7. ROLES
-    );
-}
+    private UserDTO mapToDTO(User user) {
+        return new UserDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getAge(),
+                user.getGender(),
+                user.getLevel(), // Ahora pasa el enum Level
+                user.getRole()   // Ahora pasa el enum Role
+        );
+    }
 }

@@ -4,6 +4,8 @@ package com.company.projecte_esport.dto;
  *
  * @author Jesus
  */
+import com.company.projecte_esport.model.Level;
+import com.company.projecte_esport.model.Role;
 import java.util.Set;
 
 public class UserDTO {
@@ -13,23 +15,23 @@ public class UserDTO {
     private String email;
     private int age;
     private String gender;
-    private String level;
-    private Set<String> roles;
+    private Level level;
+    private Role role;
 
     public UserDTO() {
     }
 
-    public UserDTO(String id, String name, String email, int age, String gender, String level, Set<String> roles) {
+    public UserDTO(String id, String name, String email, int age, String gender, Level level, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.gender = gender;
         this.level = level;
-        this.roles = roles;
+        this.role = role;
     }
 
-    public UserDTO(String name, String email, int age, String gender, String level) {
+    public UserDTO(String name, String email, int age, String gender, Level level) {
         this.name = name;
         this.email = email;
         this.age = age;
@@ -78,19 +80,19 @@ public class UserDTO {
         this.gender = gender;
     }
 
-    public String getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
