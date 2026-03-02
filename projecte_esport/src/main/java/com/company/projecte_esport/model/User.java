@@ -4,11 +4,13 @@ package com.company.projecte_esport.model;
  *
  * @author Leomar
  */
-
+import java.time.LocalDate;
+import java.time.Period;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
 import java.util.Set;
+import org.springframework.data.annotation.Transient;
 
 @Document(collection = "users")
 public class User {
@@ -19,7 +21,7 @@ public class User {
     @Indexed(unique = true)
     private String email;
     private String password;
-    private int age;
+    private LocalDate birthDate;
     private String gender;
     private Level level; // basic, medium, high 
     private Role role; // ROLE_USER, ROLE_ADMIN
@@ -28,15 +30,24 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, int age, String gender, Level level, Role role) {
+    public User(String name, String email, String password, LocalDate birthDate, String gender, Level level, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.age = age;
+        this.birthDate = birthDate;
         this.gender = gender;
         this.level = level;
         this.role = role;
     }
+    
+    @Transient 
+    public int getAge() {
+        if (this.birthDate != null) {
+            return Period.between(this.birthDate, LocalDate.now()).getYears();
+        }
+        return 0;
+    }
+
 
     // Getters and Setters
     public String getId() {
@@ -50,6 +61,15 @@ public class User {
     public String getName() {
         return name;
     }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+    
 
     public void setName(String name) {
         this.name = name;
@@ -71,14 +91,7 @@ public class User {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
+ 
     public String getGender() {
         return gender;
     }

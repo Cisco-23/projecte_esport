@@ -6,6 +6,7 @@ package com.company.projecte_esport.dto;
  */
 import com.company.projecte_esport.model.Level;
 import com.company.projecte_esport.model.Role;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class UserDTO {
@@ -14,6 +15,7 @@ public class UserDTO {
     private String name;
     private String email;
     private int age;
+    private LocalDate birthDate;
     private String gender;
     private Level level;
     private Role role;
@@ -21,7 +23,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String id, String name, String email, int age, String gender, Level level, Role role) {
+    public UserDTO(String id, String name, String email, int age, String gender, Level level, Role role, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -29,6 +31,7 @@ public class UserDTO {
         this.gender = gender;
         this.level = level;
         this.role = role;
+        this.birthDate = birthDate;
     }
 
     public UserDTO(String name, String email, int age, String gender, Level level) {
@@ -42,6 +45,14 @@ public class UserDTO {
     // Getters y Setters
     public String getId() {
         return id;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public void setId(String id) {

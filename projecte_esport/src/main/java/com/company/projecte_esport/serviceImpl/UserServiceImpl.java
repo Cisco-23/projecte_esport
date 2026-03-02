@@ -51,12 +51,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        
-        // AHORA ES MUCHÍSIMO MÁS FÁCIL:
+
         if (user.getRole() == null) {
             user.setRole(Role.USER);
         }
- 
+
         User savedUser = userRepository.save(user);
         return mapToDTO(savedUser);
     }
@@ -73,11 +72,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-        // Verificar si existe antes de actualizar
-        if (userRepository.existsById(user.getId())) {
-            // Se actualiza el perfil
-            userRepository.save(user);
+        User existingUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        
+        if (user.getName() != null) {
+            existingUser.setName(user.getName());
         }
+        
+        if (user.getBirthDate() != null) {
+            existingUser.setBirthDate(user.getBirthDate());
+        }
+        
+        if (user.getGender() != null) {
+            existingUser.setGender(user.getGender());
+        }
+        
+        // Usamos el Enum Level
+        if (user.getLevel() != null) {
+            existingUser.setLevel(user.getLevel());
+        }
+
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        
+        userRepository.save(existingUser);
     }
 
     @Override
@@ -101,7 +120,8 @@ public class UserServiceImpl implements UserService {
                 user.getAge(),
                 user.getGender(),
                 user.getLevel(), // Ahora pasa el enum Level
-                user.getRole()   // Ahora pasa el enum Role
+                user.getRole(), // Ahora pasa el enum Role
+                user.getBirthDate()
         );
     }
 }
