@@ -1,4 +1,5 @@
 package com.company.projecte_esport.repository;
+
 /**
  *
  * @author Leomar
@@ -12,9 +13,13 @@ import java.util.Optional;
 
 // Repositorio para la gestion de reservas de squash
 public interface BookingRepository extends MongoRepository<Booking, String> {
+
     // Buscar reservas donde el usuario es el jugador 1 o el jugador 2 (historico)
     List<Booking> findByPlayer1IdOrPlayer2Id(String player1Id, String player2Id);
 
-   // Busca si hay hueco en una fecha y hora exactas
-Optional<Booking> findByDateTimeAndIsFullFalse(LocalDateTime dateTime);
+    // Busca si hay hueco en una fecha y hora exactas
+    Optional<Booking> findByDateTimeAndIsFullFalse(LocalDateTime dateTime);
+
+// Buscar todas las reservas de un día concreto (entre inicio y fin del día)
+    List<Booking> findByDateTimeBetween(LocalDateTime start, LocalDateTime end);
 }

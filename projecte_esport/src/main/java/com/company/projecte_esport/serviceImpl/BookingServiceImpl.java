@@ -4,7 +4,6 @@ package com.company.projecte_esport.serviceImpl;
  *
  * @author Leomar
  */
-
 import com.company.projecte_esport.dto.BookingDTO;
 import com.company.projecte_esport.model.Booking;
 import com.company.projecte_esport.repository.BookingRepository;
@@ -26,24 +25,24 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO createIndividualBooking(BookingDTO dto) {
         // Buscar si alguien espera pareja a esa misma hora 
         return bookingRepository.findByDateTimeAndIsFullFalse(dto.getDateTime())
-            .map(existingBooking -> {
-                existingBooking.setPlayer2Id(dto.getPlayer1Id());
-                existingBooking.setFull(true); // Encuentra la pareja
-                return mapToDTO(bookingRepository.save(existingBooking));
-            })
-            .orElseGet(() -> {
-                // Si no hay nadie, se crea la reserva esperando pareja 
-                Booking newBooking = new Booking(dto.getDateTime(), dto.getCourtName(), 
-                                                dto.getPlayer1Id(), null, false);
-                return mapToDTO(bookingRepository.save(newBooking));
-            });
+                .map(existingBooking -> {
+                    existingBooking.setPlayer2Id(dto.getPlayer1Id());
+                    existingBooking.setFull(true); // Encuentra la pareja
+                    return mapToDTO(bookingRepository.save(existingBooking));
+                })
+                .orElseGet(() -> {
+                    // Si no hay nadie, se crea la reserva esperando pareja 
+                    Booking newBooking = new Booking(dto.getDateTime(), dto.getCourtName(),
+                            dto.getPlayer1Id(), null, false);
+                    return mapToDTO(bookingRepository.save(newBooking));
+                });
     }
 
     @Override
     public BookingDTO createBookingWithPartner(BookingDTO dto) {
         // Reserva para dos personas ya registradas
-        Booking booking = new Booking(dto.getDateTime(), dto.getCourtName(), 
-                                      dto.getPlayer1Id(), dto.getPlayer2Id(), true);
+        Booking booking = new Booking(dto.getDateTime(), dto.getCourtName(),
+                dto.getPlayer1Id(), dto.getPlayer2Id(), true);
         return mapToDTO(bookingRepository.save(booking));
     }
 
@@ -61,7 +60,19 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private BookingDTO mapToDTO(Booking b) {
-        return new BookingDTO(b.getId(), b.getDateTime(), b.getCourtName(), 
-                              b.getPlayer1Id(), b.getPlayer2Id(), b.isFull());
+        return new BookingDTO(b.getId(), b.getDateTime(), b.getCourtName(),
+                b.getPlayer1Id(), b.getPlayer2Id(), b.isFull());
+    }
+
+    @Override
+    public List<BookingDTO> getBookingsByDate(java.time.LocalDate date) {
+        // definimos el inicio del día (00:00:00) y el final (23:59:59)
+        java.time.LocalDateTime startOfDay = date.atStartOfDay();
+        java.time.LocalDateTime endOfDay = date.atTime(23, 59, 59);
+
+        // buscamos en MongoDB y lo pasamos a DTO
+        return bookingRepository.findByDateTimeBetween(startOfDay, endOfDay).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 }

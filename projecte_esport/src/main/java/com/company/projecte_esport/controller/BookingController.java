@@ -30,6 +30,12 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getUserBookings(userId));
     }
 
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<BookingDTO>> getBookingsByDate(@PathVariable String date) {
+        java.time.LocalDate localDate = java.time.LocalDate.parse(date);
+        return ResponseEntity.ok(bookingService.getBookingsByDate(localDate));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancel(@PathVariable String id) {
         bookingService.cancelBooking(id);

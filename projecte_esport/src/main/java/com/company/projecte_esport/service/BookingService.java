@@ -20,4 +20,7 @@ public interface BookingService {
 
     // Cancelar
     void cancelBooking(String bookingId);
+    
+    // Consultar disponibilidad por fecha
+    List<BookingDTO> getBookingsByDate(java.time.LocalDate date);
 }
