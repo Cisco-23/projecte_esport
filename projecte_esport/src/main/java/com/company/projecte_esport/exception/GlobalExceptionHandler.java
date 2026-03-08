@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
     // captura cualquier otro error inesperado
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleGlobalException(Exception ex) {
+        ex.printStackTrace();
         ErrorResponseDTO error = new ErrorResponseDTO(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), // 500

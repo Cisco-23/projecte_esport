@@ -22,10 +22,30 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        // ignoramos la ruta del swagger
+        return path.startsWith("/api/auth/") || 
+               path.startsWith("/swagger-ui/") || 
+               path.startsWith("/v3/api-docs/");
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+        
+        String path = request.getRequestURI();
+    
+    // Si la ruta es publica (Login, Registro o Swagger), la dejamos pasar
+    
+    // Dejamos pasar el Login, Swagger, la documentación y los archivos web de la interfaz
+    // Si la ruta CONTIENE alguna de estas palabras, la dejamos pasar sin pedir token
+    if (path.contains("/api/auth") || path.contains("/swagger-ui") || path.contains("/v3/api-docs")) {
+        chain.doFilter(request, response);
+        return; // Detenemos el filtro aquí
+    }
 
         System.out.println("=== NUEVA PETICION A: " + request.getRequestURI() + " ===");
 
