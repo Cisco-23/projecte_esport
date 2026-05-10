@@ -4,6 +4,7 @@ package com.company.projecte_esport.dto;
  *
  * @author Jesus
  */
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 
 public class BookingDTO {
@@ -68,9 +69,10 @@ public class BookingDTO {
         this.player2Id = player2Id;
     }
 
-    public boolean isFull() {
-        return isFull;
-    }
+    @JsonProperty("isFull")
+public boolean getIsFull() {
+    return isFull;
+}
 
     public void setFull(boolean full) {
         isFull = full;

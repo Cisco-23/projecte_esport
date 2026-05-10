@@ -21,15 +21,34 @@ public class MatchResultServiceImpl implements MatchResultService {
         this.matchResultRepository = matchResultRepository;
     }
 
-    @Override
-    public MatchResultDTO createMatchResult(MatchResultDTO dto) {
-        // Guardar resultado de la partida
-        MatchResult result = new MatchResult(dto.getBookingId(), dto.getPlayer1Sets(), 
-                                            dto.getPlayer2Sets(), dto.getWinnerId(), dto.getMatchDate());
-        MatchResult saved = matchResultRepository.save(result);
-        return new MatchResultDTO(saved.getBookingId(), saved.getPlayer1Sets(), 
-                                 saved.getPlayer2Sets(), saved.getWinnerId(), saved.getMatchDate());
-    }
+
+@Override
+public MatchResultDTO createMatchResult(MatchResultDTO dto) {
+    System.out.println("📥 Guardando resultado...");
+    System.out.println("   BookingId: " + dto.getBookingId());
+    System.out.println("   Player1Sets: " + dto.getPlayer1Sets());
+    System.out.println("   Player2Sets: " + dto.getPlayer2Sets());
+    System.out.println("   WinnerId: " + dto.getWinnerId());
+    
+    MatchResult result = new MatchResult(
+        dto.getBookingId(), 
+        dto.getPlayer1Sets(), 
+        dto.getPlayer2Sets(), 
+        dto.getWinnerId(), 
+        java.time.LocalDate.now()
+    );
+    
+    MatchResult saved = matchResultRepository.save(result);
+    System.out.println("✅ Guardado con ID: " + saved.getId());
+    
+    return new MatchResultDTO(
+        saved.getBookingId(), 
+        saved.getPlayer1Sets(), 
+        saved.getPlayer2Sets(), 
+        saved.getWinnerId(), 
+        saved.getMatchDate()
+    );
+}
 
     @Override
     public List<MatchResultDTO> getWinsByPlayerId(String playerId) {
@@ -75,4 +94,6 @@ public class MatchResultServiceImpl implements MatchResultService {
             m.getMatchDate()
         );
     }
+    
+    
 }

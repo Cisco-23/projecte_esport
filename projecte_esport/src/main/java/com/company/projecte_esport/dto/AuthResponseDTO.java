@@ -1,29 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// dto/AuthResponseDTO.java
 package com.company.projecte_esport.dto;
 
-/**
- *
- * @author Jesus
- */
 public class AuthResponseDTO {
 
     private String token;
     private String email;
     private String name;
-    private String role; //para mostrar el rol 
+    private String role;
+
+    public AuthResponseDTO() {
+    }
+
+
+    public AuthResponseDTO(String token) {
+        this.token = token;
+    }
+
 
     public AuthResponseDTO(String token, String email, String name, String role) {
         this.token = token;
         this.email = email;
         this.name = name;
         this.role = role;
-    }
-
-    public AuthResponseDTO(String token) {
-      this.token = token;
     }
 
     // Getters y Setters

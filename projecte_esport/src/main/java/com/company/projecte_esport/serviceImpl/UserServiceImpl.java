@@ -32,21 +32,44 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @Override
-    public AuthResponseDTO login(LoginDTO loginDTO) {
-        // Buscar usuario por email
-        User user = userRepository.findByEmail(loginDTO.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+// serviceImpl/UserServiceImpl.java
+@Override
+public AuthResponseDTO login(LoginDTO loginDTO) {
+    System.out.println("📥 UserServiceImpl.login() - Inicio");
+    System.out.println("   Buscando usuario con email: " + loginDTO.getEmail());
+    
+    // Buscar usuario por email
+    User user = userRepository.findByEmail(loginDTO.getEmail())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + loginDTO.getEmail()));
 
-        // Verificar contraseña cifrada
-        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            // Generar token si es correcta
-            String token = jwtUtils.generateToken(user.getEmail());
-            return new AuthResponseDTO(token);
-        } else {
-            throw new RuntimeException("Credenciales incorrectas");
-        }
+    System.out.println("✅ Usuario encontrado: " + user.getEmail());
+    System.out.println("   ID: " + user.getId());
+    System.out.println("   Nombre: " + user.getName());
+    System.out.println("   Rol: " + user.getRole());
+
+    // Verificar contraseña
+    if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+        System.out.println("✅ Contraseña correcta, generando token...");
+        
+        // Generar token
+        String token = jwtUtils.generateToken(user.getEmail());
+        System.out.println("✅ Token generado: " + token.substring(0, 30) + "...");
+        
+        // IMPORTANTE: Usar el constructor COMPLETO con todos los campos
+        AuthResponseDTO response = new AuthResponseDTO(
+            token,
+            user.getEmail(),
+            user.getName(),
+            user.getRole().name()  // Convertir enum a String
+        );
+        
+        System.out.println("✅ Login completado exitosamente");
+        return response;
+    } else {
+        System.out.println("❌ Contraseña incorrecta");
+        throw new RuntimeException("Credenciales incorrectas");
     }
+}
 
     @Override
     public UserDTO create(User user) {

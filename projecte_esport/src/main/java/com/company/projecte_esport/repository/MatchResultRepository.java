@@ -19,4 +19,6 @@ public interface MatchResultRepository extends MongoRepository<MatchResult, Stri
     
     // Verificar si ya existe resultado para una reserva
     boolean existsByBookingId(String bookingId);
+    
+    
 }

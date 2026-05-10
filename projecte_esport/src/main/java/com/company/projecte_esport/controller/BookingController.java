@@ -41,4 +41,10 @@ public class BookingController {
         bookingService.cancelBooking(id);
         return ResponseEntity.noContent().build();
     }
+    
+  
+@GetMapping("/user/{userId}/pending-results")
+public ResponseEntity<List<BookingDTO>> getPendingResults(@PathVariable String userId) {
+    return ResponseEntity.ok(bookingService.getPendingResults(userId));
+}
 }

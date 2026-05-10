@@ -62,4 +62,19 @@ public class JwtUtils {
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
+
+public String generateToken(String username, String userId) {
+    return Jwts.builder()
+            .subject(username)
+            .claim("userId", userId)  // 👈 AÑADIR ESTO
+            .issuedAt(new Date(System.currentTimeMillis()))
+            .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+            .signWith(getSigningKey())
+            .compact();
+}
+
+// Método para extraer userId del token
+public String extractUserId(String token) {
+    return extractClaim(token, claims -> claims.get("userId", String.class));
+}
 }
